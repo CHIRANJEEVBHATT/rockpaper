@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Rock-Paper-Scissors</title>
+  <style>
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      font-weight: bold;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    h1 {
+      font-size: 3.5rem;
+      color: black;
+    }
+
+    .choice {
+      margin-bottom: 30px;
+    }
+
+    .choice button {
+      font-size: 7.5rem;
+      min-width: 160px;
+      margin: 0 10px;
+      border-radius: 250px;
+      background-color: rgba(0, 255, 255, 0.699);
+      cursor: pointer;
+      transition: background-color 0.5s ease;
+    }
+
+    .choice button:hover {
+      background-color: aqua;
+    }
+
+    #player,
+    #computer {
+      font-size: 2.5rem;
+    }
+
+    #result {
+      font-size: 5rem;
+      margin: 30px 0;
+    }
+
+    .greenText {
+      color: green;
+    }
+
+    .redText  {
+      color: red;
+    }
+
+    .score {
+      font-size: 2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>ROCK - PAPER - SCISSORS</h1>
+
+  <div class="choice">
+    <button onclick="playGame('rock')" id="rockBtn">🪨</button>
+    <button onclick="playGame('paper')" id="paperBtn">📃</button>
+    <button onclick="playGame('scissors')" id="scissorsBtn">✂️</button>
+  </div>
+
+  <div id="player">PLAYER</div>
+  <div id="computer">COMPUTER</div>
+  <div id="result">IT IS A TIE!</div>
+
+  <div class="score">PLAYER SCORE:
+    <span id="playerScore" style="color: green;">0</span>
+  </div>
+  <div class="score">COMPUTER SCORE:
+    <span id="computerScore" style="color: red;">0</span>
+  </div>
+
+  <script>
+    const choices = ["rock", "paper", "scissors"];
+    const player = document.getElementById("player");
+    const computer = document.getElementById("computer");
+    const resultDisplay = document.getElementById("result");
+    const playerScoreDisplay = document.getElementById("playerScore");
+    const computerScoreDisplay = document.getElementById("computerScore");
+    const buttons = [
+      document.getElementById("rockBtn"),
+      document.getElementById("paperBtn"),
+      document.getElementById("scissorsBtn")
+    ];
+
+    let playerScore = 0;
+    let computerScore = 0;
+    let gameOver = false;
+
+    function playGame(playerChoice) {
+      if (gameOver) return;
+
+      const computerChoice = choices[Math.floor(Math.random() * 3)];
+      let result = "";
+
+      if (playerChoice === computerChoice) {
+        result = "IT IS A TIE";
+      } else {
+        switch (playerChoice) {
+          case "rock":
+            result = (computerChoice === "scissors") ? "YOU WIN!" : "YOU LOSE!";
+            break;
+          case "paper":
+            result = (computerChoice === "rock") ? "YOU WIN!" : "YOU LOSE!";
+            break;
+          case "scissors":
+            result = (computerChoice === "paper") ? "YOU WIN!" : "YOU LOSE!";
+            break;
+        }
+      }
+
+      player.textContent = `PLAYER: ${playerChoice}`;
+      computer.textContent = `COMPUTER: ${computerChoice}`;
+      resultDisplay.textContent = result;
+      resultDisplay.classList.remove("greenText", "redText");
+
+      if (result === "YOU WIN!") {
+        resultDisplay.classList.add("greenText");
+        playerScore++;
+        playerScoreDisplay.textContent = playerScore;
+      } else if (result === "YOU LOSE!") {
+        resultDisplay.classList.add("redText");
+        computerScore++;
+        computerScoreDisplay.textContent = computerScore;
+      }
+
+      if (playerScore === 5 || computerScore === 5) {
+        gameOver = true;
+        resultDisplay.textContent = playerScore === 5 ? "🎉 YOU WON THE GAME!" : "😞 YOU LOST THE GAME!";
+        resultDisplay.classList.add(playerScore === 5 ? "greenText" : "redText");
+        disableButtons();
+      }
+    }
+
+    function disableButtons() {
+      buttons.forEach(button => {
+        button.disabled = true;
+        button.style.opacity = 0.5;
+        button.style.cursor = "not-allowed";
+      });
+    }
+  </script>
+</body>
+</html>
