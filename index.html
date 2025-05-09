@@ -136,7 +136,7 @@
 
       if (playerScore === 5 || computerScore === 5) {
         gameOver = true;
-        resultDisplay.textContent = playerScore === 5 ? "🎉 YOU WON THE GAME!" : "😞 YOU LOST THE GAME!";
+        resultDisplay.textContent = playerScore === 5 ? "YOU WON THE GAME!" : "YOU LOST THE GAME!";
         resultDisplay.classList.add(playerScore === 5 ? "greenText" : "redText");
         disableButtons();
       }
