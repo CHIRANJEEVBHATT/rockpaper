@@ -58,6 +58,12 @@
     .score {
       font-size: 2rem;
     }
+    #resetbtn{
+      padding: 20px;
+      border-radius: 30px;
+      background-color: rgb(160, 235, 160);
+      margin-top: 30px;
+    }
   </style>
 </head>
 <body>
@@ -80,6 +86,10 @@
     <span id="computerScore" style="color: red;">0</span>
   </div>
 
+  <div class="reset">
+    <button onclick="resetgame() " id="resetbtn">RESET</button>
+  </div>
+
   <script>
     const choices = ["rock", "paper", "scissors"];
     const player = document.getElementById("player");
@@ -97,6 +107,11 @@
     let computerScore = 0;
     let gameOver = false;
 
+    function resetgame(){
+      playerScoreDisplay.textContent = "0";
+      computerScoreDisplay.textContent = "0";
+      resultDisplay.textContent = "";
+    }
     function playGame(playerChoice) {
       if (gameOver) return;
 
